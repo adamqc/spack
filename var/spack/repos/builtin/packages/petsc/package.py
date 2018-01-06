@@ -78,6 +78,8 @@ class Petsc(Package):
     variant('mumps',   default=False,
             description='Activates support for MUMPS (only parallel'
             ' and 32bit indices)')
+    variant('superlu', default=False,
+            description='Activates support for Superlu (only 32bit indices)')
     variant('superlu-dist', default=True,
             description='Activates support for SuperluDist (only parallel)')
     variant('trilinos', default=False,
@@ -141,6 +143,7 @@ class Petsc(Package):
     depends_on('superlu-dist@xsdk-0.2.0+int64', when='@xsdk-0.2.0+superlu-dist+mpi+int64')
     depends_on('superlu-dist@develop~int64', when='@develop+superlu-dist+mpi~int64')
     depends_on('superlu-dist@develop+int64', when='@develop+superlu-dist+mpi+int64')
+    depends_on('superlu+fpic', when='+superlu~int64')
     depends_on('mumps+mpi', when='+mumps+mpi~int64')
     depends_on('scalapack', when='+mumps+mpi~int64')
     depends_on('trilinos@12.6.2:', when='@3.7.0:+trilinos+mpi')
@@ -222,7 +225,7 @@ class Petsc(Package):
 
         # Activates library support if needed
         for library in ('metis', 'boost', 'hdf5', 'hypre', 'parmetis',
-                        'mumps', 'trilinos', 'zlib'):
+                        'mumps', 'trilinos', 'zlib', 'superlu'):
             options.append(
                 '--with-{library}={value}'.format(
                     library=library, value=('1' if library in spec else '0'))

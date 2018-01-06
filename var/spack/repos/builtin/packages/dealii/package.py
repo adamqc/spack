@@ -45,7 +45,7 @@ class Dealii(CMakePackage, CudaPackage):
     version('8.3.0', 'fc6cdcb16309ef4bea338a4f014de6fa')
     version('8.2.1', '71c728dbec14f371297cd405776ccf08')
     version('8.1.0', 'aa8fadc2ce5eb674f44f997461bf668d')
-    version('develop', git='https://github.com/dealii/dealii.git', branch='master')
+    version('develop', git='https://github.com/dealii/dealii.git', tag='master')
 
     variant('mpi',      default=True,  description='Compile with MPI')
     variant('assimp',   default=False,
